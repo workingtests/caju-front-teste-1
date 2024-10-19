@@ -1,5 +1,5 @@
 import { InputHTMLAttributes } from "react";
-import { Input } from "./styles";
+import * as S from "./styles";
 
 type TextFieldProps = {
   label?: string;
@@ -10,7 +10,7 @@ export const TextField = (props: TextFieldProps) => {
   return (
     <div>
       <label htmlFor={props.id}>{props.label}</label>
-      <Input {...props} />
+      <S.Input {...props} />
       <span style={{ fontSize: 12, color: "red" }}>{props.error}</span>
     </div>
   );

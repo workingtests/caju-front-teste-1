@@ -14,4 +14,3 @@ export const DashboardPage = () => {
     </S.Container>
   );
 };
-

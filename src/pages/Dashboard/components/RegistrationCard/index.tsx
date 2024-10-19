@@ -1,5 +1,3 @@
-import { ButtonSmall } from "~/components/Buttons";
-import * as S from "./styles";
 import {
   HiOutlineMail,
   HiOutlineUser,
@@ -7,34 +5,64 @@ import {
   HiOutlineTrash,
 } from "react-icons/hi";
 
-type Props = {
-  data: any;
+import { ButtonSmall } from "~/components/Buttons";
+import { Registration } from "~/types/registration";
+
+import * as S from "./styles";
+import { useChangeStatusRegistration } from "~/hooks/use-change-status-registration";
+
+type RegistrationCardProps = {
+  registration: Registration;
 };
 
-const RegistrationCard = (props: Props) => {
+export const RegistrationCard = ({ registration }: RegistrationCardProps) => {
+  const { changeStatusRegistration } = useChangeStatusRegistration({
+    registration,
+  });
+  const isReview = registration.status === "REVIEW";
+
   return (
     <S.Card>
       <S.IconAndText>
         <HiOutlineUser />
-        <h3>{props.data.employeeName}</h3>
+        <h3>{registration.employeeName}</h3>
       </S.IconAndText>
       <S.IconAndText>
         <HiOutlineMail />
-        <p>{props.data.email}</p>
+        <p>{registration.email}</p>
       </S.IconAndText>
       <S.IconAndText>
         <HiOutlineCalendar />
-        <span>{props.data.admissionDate}</span>
+        <span>{registration.admissionDate}</span>
       </S.IconAndText>
       <S.Actions>
-        <ButtonSmall bgcolor="rgb(255, 145, 154)" >Reprovar</ButtonSmall>
-        <ButtonSmall bgcolor="rgb(155, 229, 155)">Aprovar</ButtonSmall>
-        <ButtonSmall bgcolor="#ff8858">Revisar novamente</ButtonSmall>
-
+        <S.ActionsButton>
+          {isReview ? (
+            <>
+              <ButtonSmall
+                bgcolor="rgb(255, 145, 154)"
+                onClick={() => changeStatusRegistration({ status: "REPROVED" })}
+              >
+                Reprovar
+              </ButtonSmall>
+              <ButtonSmall
+                bgcolor="rgb(155, 229, 155)"
+                onClick={() => changeStatusRegistration({ status: "APPROVED" })}
+              >
+                Aprovar
+              </ButtonSmall>
+            </>
+          ) : (
+            <ButtonSmall
+              bgcolor="#ff8858"
+              onClick={() => changeStatusRegistration({ status: "REVIEW" })}
+            >
+              Revisar novamente
+            </ButtonSmall>
+          )}
+        </S.ActionsButton>
         <HiOutlineTrash />
       </S.Actions>
     </S.Card>
   );
 };
-
-export default RegistrationCard;
