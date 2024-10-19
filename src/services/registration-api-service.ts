@@ -56,3 +56,26 @@ export async function changeStatusRegistration({
 
   return res.json();
 }
+
+type DeleteRegistrationRequest = {
+  registrationId: string;
+};
+
+export async function deleteRegistration({
+  registrationId,
+}: DeleteRegistrationRequest): Promise<void> {
+  const res = await fetch(
+    `http://localhost:3000/registrations/${registrationId}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!res.ok) {
+    const { error } = (await res.json()) as { error: string };
+    throw new Error(error);
+  }
+}

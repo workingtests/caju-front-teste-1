@@ -10,6 +10,7 @@ import { Registration } from "~/types/registration";
 
 import * as S from "./styles";
 import { useChangeStatusRegistration } from "~/hooks/use-change-status-registration";
+import { useDeleteRegistration } from "~/hooks/use-delete-registration";
 
 type RegistrationCardProps = {
   registration: Registration;
@@ -19,6 +20,11 @@ export const RegistrationCard = ({ registration }: RegistrationCardProps) => {
   const { changeStatusRegistration } = useChangeStatusRegistration({
     registration,
   });
+
+  const { deleteRegistration } = useDeleteRegistration({
+    registrationId: registration.id,
+  });
+
   const isReview = registration.status === "REVIEW";
 
   return (
@@ -61,7 +67,7 @@ export const RegistrationCard = ({ registration }: RegistrationCardProps) => {
             </ButtonSmall>
           )}
         </S.ActionsButton>
-        <HiOutlineTrash />
+        <HiOutlineTrash onClick={() => deleteRegistration()} />
       </S.Actions>
     </S.Card>
   );
