@@ -1,13 +1,17 @@
-import Collumns from "./components/Columns";
-import * as S from "./styles";
-import { SearchBar } from "./components/Searchbar";
+import { useRegistrations } from "~/hooks/use-registrations";
 
-const DashboardPage = () => {
+import { Collumns } from "./components/Columns";
+import { SearchBar } from "./components/Searchbar";
+import * as S from "./styles";
+
+export const DashboardPage = () => {
+  const { registrations } = useRegistrations();
+
   return (
     <S.Container>
       <SearchBar />
-      <Collumns registrations={[]} />
+      <Collumns registrations={registrations} />
     </S.Container>
   );
 };
-export default DashboardPage;
+
