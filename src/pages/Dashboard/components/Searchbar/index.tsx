@@ -27,9 +27,13 @@ export const SearchBar = () => {
 
   const handleChangeCpf = (cpf: string) => setCpf(cpf);
 
-  const cpfInvalidMessage = validateCpf(cpf ?? "")
-    ? ""
-    : "O CPF informado não é válido. Por favor, verifique e tente novamente.";
+  const cpfInvalidMessage = () => {
+    if (!cpf) return "";
+
+    return validateCpf(cpf)
+      ? ""
+      : "O CPF informado não é válido. Por favor, verifique e tente novamente.";
+  };
 
   useEffect(() => {
     const searchParams = new URLSearchParams();
@@ -47,7 +51,7 @@ export const SearchBar = () => {
         value={cpf}
         onChange={toCpfCallback(handleChangeCpf)}
         placeholder="Digite um CPF válido"
-        error={cpfInvalidMessage}
+        error={cpfInvalidMessage()}
       />
       <S.Actions>
         <IconButton aria-label="refetch">
