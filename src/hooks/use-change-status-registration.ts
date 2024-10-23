@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { changeStatusRegistration } from "~/services/registration-api-service";
 import { Registration } from "~/types/registration";
 import { Status } from "~/types/status";
+import { useRegistrationsQueryKey } from "./use-registrations";
 
 const messages: Record<Status, string> = {
   APPROVED: "O registro foi aprovado com sucesso!",
@@ -15,18 +16,20 @@ type UseChangeStatusRegistrationOptions = {
   registration: Registration;
 };
 
+const useChangeStatusRegistrationMutationKey = "use-change-status-registration";
+
 export const useChangeStatusRegistration = ({
   registration,
 }: UseChangeStatusRegistrationOptions) => {
   const queryClient = useQueryClient();
 
   const { mutate, isPending } = useMutation({
-    mutationKey: ["use-change-status-registration", registration.id],
+    mutationKey: [useChangeStatusRegistrationMutationKey, registration.id],
     mutationFn: ({ status }: { status: Status }) =>
       changeStatusRegistration({ registration: { ...registration, status } }),
     onSuccess: (_, { status }) => {
       toast.success(messages[status]);
-      queryClient.invalidateQueries({ queryKey: ["use-registrations"] });
+      queryClient.invalidateQueries({ queryKey: [useRegistrationsQueryKey] });
     },
   });
 

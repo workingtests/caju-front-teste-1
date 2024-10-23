@@ -8,17 +8,20 @@ import {
   addRegistration,
   AddRegistrationRequest,
 } from "~/services/registration-api-service";
+import { useRegistrationsQueryKey } from "./use-registrations";
+
+const useAddRegistrationMutationKey = "add-registration";
 
 export const useAddRegistration = () => {
   const queryClient = useQueryClient();
   const history = useHistory();
 
   const { mutateAsync, isPending } = useMutation({
-    mutationKey: ["add-registration"],
+    mutationKey: [useAddRegistrationMutationKey],
     mutationFn: (values: AddRegistrationRequest) => addRegistration(values),
     onSuccess: () => {
       toast.success("O registro foi criado com sucesso!");
-      queryClient.invalidateQueries({ queryKey: ["use-registrations"] });
+      queryClient.invalidateQueries({ queryKey: [useRegistrationsQueryKey] });
       history.push(routes.dashboard);
     },
   });

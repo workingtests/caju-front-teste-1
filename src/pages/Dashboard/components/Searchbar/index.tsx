@@ -6,6 +6,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import Button from "~/components/Buttons";
 import { IconButton } from "~/components/IconButton";
 import { TextField } from "~/components/TextField";
+import { useRegistrationsQueryKey } from "~/hooks/use-registrations";
 import { routes } from "~/router/routes";
 import { toCpfCallback, validateCpf } from "~/utils/strings/cpf";
 import { removeNonNumericCharacters } from "~/utils/strings/remove-non-numeric-characters";
@@ -59,7 +60,7 @@ export const SearchBar = () => {
         <IconButton
           aria-label="refetch"
           onClick={() =>
-            queryClient.invalidateQueries({ queryKey: ["use-registrations"] })
+            queryClient.invalidateQueries({ queryKey: [useRegistrationsQueryKey] })
           }
         >
           <HiRefresh />

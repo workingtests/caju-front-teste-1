@@ -4,6 +4,8 @@ import { useLocation } from "react-router-dom";
 import { getRegistrations } from "~/services/registration-api-service";
 import { removeNonNumericCharacters } from "~/utils/strings/remove-non-numeric-characters";
 
+export const useRegistrationsQueryKey = "use-registrations";
+
 export const useRegistrations = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -11,7 +13,7 @@ export const useRegistrations = () => {
   const cpf = removeNonNumericCharacters(searchParams.get("cpf") ?? "");
 
   const { data, isFetching } = useQuery({
-    queryKey: ["use-registrations", cpf],
+    queryKey: [useRegistrationsQueryKey, cpf],
     queryFn: () => getRegistrations({ cpf }),
   });
 
