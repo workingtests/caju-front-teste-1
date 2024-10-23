@@ -6,12 +6,12 @@ import * as S from "./styles";
 import { Skeleton } from "~/components/Skeleton";
 
 export const DashboardPage = () => {
-  const { registrations, isLoading } = useRegistrations();
+  const { registrations, isFetching } = useRegistrations();
 
   return (
     <S.Container>
       <SearchBar />
-      {isLoading ? <Skeleton /> : <Collumns registrations={registrations} />}
+      {isFetching ? <Skeleton /> : <Collumns registrations={registrations} />}
     </S.Container>
   );
 };

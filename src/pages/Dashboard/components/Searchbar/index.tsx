@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { HiRefresh } from "react-icons/hi";
 import { useHistory, useLocation } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 
 import Button from "~/components/Buttons";
-import { IconButton } from "~/components/Buttons/IconButton";
+import { IconButton } from "~/components/IconButton";
 import { TextField } from "~/components/TextField";
 import { routes } from "~/router/routes";
 import { toCpfCallback, validateCpf } from "~/utils/strings/cpf";
@@ -19,6 +20,7 @@ const getCpfFromSearchParams = (location: ReturnType<typeof useLocation>) => {
 export const SearchBar = () => {
   const history = useHistory();
   const location = useLocation();
+  const queryClient = useQueryClient();
   const [cpf, setCpf] = useState(() => getCpfFromSearchParams(location));
 
   const goToNewAdmissionPage = () => {
@@ -54,7 +56,12 @@ export const SearchBar = () => {
         error={cpfInvalidMessage()}
       />
       <S.Actions>
-        <IconButton aria-label="refetch">
+        <IconButton
+          aria-label="refetch"
+          onClick={() =>
+            queryClient.invalidateQueries({ queryKey: ["use-registrations"] })
+          }
+        >
           <HiRefresh />
         </IconButton>
         <Button onClick={goToNewAdmissionPage}>Nova Admissão</Button>

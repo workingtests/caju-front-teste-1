@@ -10,13 +10,13 @@ export const useRegistrations = () => {
 
   const cpf = removeNonNumericCharacters(searchParams.get("cpf") ?? "");
 
-  const { data, isLoading } = useQuery({
+  const { data, isFetching } = useQuery({
     queryKey: ["use-registrations", cpf],
     queryFn: () => getRegistrations({ cpf }),
   });
 
   return {
     registrations: data,
-    isLoading,
+    isFetching,
   };
 };

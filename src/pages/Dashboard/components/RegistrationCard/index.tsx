@@ -7,9 +7,10 @@ import {
 
 import { Registration } from "~/types/registration";
 
-import * as S from "./styles";
 import { useDeleteRegistration } from "~/hooks/use-delete-registration";
+import { IconButton } from "~/components/IconButton";
 
+import * as S from "./styles";
 import { ActionButton } from "./ActionButton";
 
 type RegistrationCardProps = {
@@ -67,7 +68,12 @@ export const RegistrationCard = ({ registration }: RegistrationCardProps) => {
               </ActionButton>
             )}
           </S.ActionsButton>
-          <HiOutlineTrash onClick={() => deleteRegistration()} />
+          <IconButton
+            aria-label="delete-registration"
+            onClick={() => deleteRegistration()}
+          >
+            <HiOutlineTrash />
+          </IconButton>
         </S.Actions>
       </S.Card>
     </>
