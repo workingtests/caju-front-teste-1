@@ -1,6 +1,30 @@
 
 # Caju Front End Teste
 
+## Arquitetura
+
+![Arquitetura do projeto](./docs/arch.png)
+
+## Architectural Decision Record (Registro de Decisão Arquitetural) (ADRs)
+
+### Action hooks
+Para o projeto foi decidido seguir o conceito de Action Hooks, esse padrão foi inicialmente introduzido pelo Tanner Linsley no video  , [The "Action Hooks" pattern with React Hooks](https://www.youtube.com/watch?v=JRz-xMIyPUA) alguns beneficios do padrão abaixo.
+
+- **Encapsulamento de Lógica de Negócio**: Separam a lógica de negócios da renderização de componentes, permitindo reutilização e manutenção mais fácil.
+- **Gerenciamento de Estado**: Facilitam o gerenciamento do estado local e compartilhado entre componentes.
+- **Melhoria da Legibilidade do Código**: Reduzem a complexidade dos componentes, tornando o código mais claro e fácil de entender.
+- **Gerenciamento de Efeitos Colaterais**: Lidam com efeitos assíncronos de forma eficiente e permitem limpeza de efeitos colaterais quando um componente é desmontado.
+- **Aumento da Testabilidade**: Facilita a escrita de testes unitários para a lógica encapsulada.
+- **Flexibilidade e Extensibilidade**: Podem ser personalizados e integrados a outros hooks, adaptando-se a diferentes necessidades.
+- **Facilidade na Manutenção**: Simplificam atualizações e promovem consistência na lógica de negócios.
+
+### Formulários
+Para formulários foi usado a biblioteca `react-hook-form` e `zod` uma solução eficiente e escalável para gerenciamento de formulários em aplicações React.
+
+### MSW
+Utilizamos o MSW como mock para os testes, o MSW é uma ferramenta poderosa para o desenvolvimento e teste de aplicações web, proporcionando um ambiente controlado e previsível. Permite criar cenários de teste complexos, como variações de resposta baseadas em condições específicas.
+
+<hr />
 Esse é um desafio técnico para você demonstrar suas habilidades como frontend, sua missão será dar continuidade ao desenvolvimento da plataforma de admissão que consiste em duas telas, a tela de `Dashboard` e uma tela de `Cadastro`.
 
 O `Dashboard` mostra todas as admissões criadas, com as opções de aprovar, reprovar e excluir.
