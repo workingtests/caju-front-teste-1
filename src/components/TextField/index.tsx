@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from "react";
+import { forwardRef, InputHTMLAttributes } from "react";
 import * as S from "./styles";
 
 type TextFieldProps = {
@@ -6,12 +6,14 @@ type TextFieldProps = {
   error?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-export const TextField = (props: TextFieldProps) => {
-  return (
-    <div>
-      <label htmlFor={props.id}>{props.label}</label>
-      <S.Input {...props} />
-      <span style={{ fontSize: 12, color: "red" }}>{props.error}</span>
-    </div>
-  );
-};
+export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
+  (props, ref) => {
+    return (
+      <div>
+        <label htmlFor={props.id}>{props.label}</label>
+        <S.Input {...props} ref={ref} />
+        <span style={{ fontSize: 12, color: "red" }}>{props.error}</span>
+      </div>
+    );
+  }
+);

@@ -1,9 +1,17 @@
+import {
+  QueryCache,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import { toast, Toaster } from "sonner";
+
 import Router from "~/router";
 import { Header } from "./components/Header";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "sonner";
 
 const queryClient = new QueryClient({
+  queryCache: new QueryCache({
+    onError: (error) => toast.error(error.message),
+  }),
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,

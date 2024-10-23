@@ -79,3 +79,38 @@ export async function deleteRegistration({
     throw new Error(error);
   }
 }
+
+export type AddRegistrationRequest = {
+  employeeName: string;
+  cpf: string;
+  email: string;
+  admissionDate: string;
+};
+
+export async function addRegistration({
+  cpf,
+  admissionDate,
+  email,
+  employeeName,
+}: AddRegistrationRequest): Promise<void> {
+  const res = await fetch(`http://localhost:3000/registrations`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      status: 'REVIEW',
+      cpf,
+      admissionDate,
+      email,
+      employeeName,
+    }),
+  });
+
+  if (!res.ok) {
+    const { error } = (await res.json()) as { error: string };
+    throw new Error(error);
+  }
+
+  return res.json();
+}
