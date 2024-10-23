@@ -1,10 +1,11 @@
 import { ReactNode, useState } from "react";
+
 import { ButtonSmall } from "~/components/Buttons";
 import { Dialog, DialogContent, DialogOverlay } from "~/components/Dialog";
 import { useChangeStatusRegistration } from "~/hooks/use-change-status-registration";
 import { Registration } from "~/types/registration";
-import { ActionsContent } from "./styles";
 import { Status } from "~/types/status";
+import * as S from "./styles";
 
 type ActionButtonProps = {
   registration: Registration;
@@ -46,7 +47,7 @@ export const ActionButton = ({
             <Dialog.Description>
               Deseja realmente confirmar essa operação?
             </Dialog.Description>
-            <ActionsContent>
+            <S.ActionsContent>
               <ButtonSmall onClick={handleCloseConfirmationDialog}>
                 Não
               </ButtonSmall>
@@ -57,7 +58,7 @@ export const ActionButton = ({
               >
                 Sim
               </ButtonSmall>
-            </ActionsContent>
+            </S.ActionsContent>
           </DialogContent>
         </Dialog.Portal>
       </Dialog.Root>
