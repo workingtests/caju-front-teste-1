@@ -2,31 +2,24 @@ import {
   HiOutlineMail,
   HiOutlineUser,
   HiOutlineCalendar,
-  HiOutlineTrash,
 } from "react-icons/hi";
 
 import { Registration } from "~/types/registration";
 
-import { useDeleteRegistration } from "~/hooks/use-delete-registration";
-import { IconButton } from "~/components/IconButton";
-
 import * as S from "./styles";
 import { ActionButton } from "./ActionButton";
+import { DeleteButton } from "./DeleteButton";
 
 type RegistrationCardProps = {
   registration: Registration;
 };
 
 export const RegistrationCard = ({ registration }: RegistrationCardProps) => {
-  const { deleteRegistration } = useDeleteRegistration({
-    registrationId: registration.id,
-  });
-
   const isReview = registration.status === "REVIEW";
 
   return (
     <>
-      <S.Card>
+      <S.Card aria-labelledby={`registration-${registration.id}`}>
         <S.IconAndText>
           <HiOutlineUser />
           <h3>{registration.employeeName}</h3>
@@ -47,6 +40,7 @@ export const RegistrationCard = ({ registration }: RegistrationCardProps) => {
                   status="REPROVED"
                   color="rgb(255, 145, 154)"
                   registration={registration}
+                  aria-label="Reprovar registro"
                 >
                   Reprovar
                 </ActionButton>
@@ -54,6 +48,7 @@ export const RegistrationCard = ({ registration }: RegistrationCardProps) => {
                   status="APPROVED"
                   color="rgb(155, 229, 155)"
                   registration={registration}
+                  aria-label="Aprovar registro"
                 >
                   Aprovar
                 </ActionButton>
@@ -63,17 +58,13 @@ export const RegistrationCard = ({ registration }: RegistrationCardProps) => {
                 status="REVIEW"
                 color="#ff8858"
                 registration={registration}
+                aria-label="Revisar registro novamente"
               >
                 Revisar novamente
               </ActionButton>
             )}
           </S.ActionsButton>
-          <IconButton
-            aria-label="delete-registration"
-            onClick={() => deleteRegistration()}
-          >
-            <HiOutlineTrash />
-          </IconButton>
+          <DeleteButton registrationId={registration.id} />
         </S.Actions>
       </S.Card>
     </>

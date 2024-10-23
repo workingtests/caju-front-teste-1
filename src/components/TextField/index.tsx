@@ -10,9 +10,11 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   (props, ref) => {
     return (
       <div>
-        <label htmlFor={props.id}>{props.label}</label>
-        <S.Input {...props} ref={ref} />
-        <span style={{ fontSize: 12, color: "red" }}>{props.error}</span>
+        <label htmlFor={props.name}>{props.label}</label>
+        <S.Input {...props} id={props.name} ref={ref} />
+        {props.error && (
+          <span style={{ fontSize: 12, color: "red" }}>{props.error}</span>
+        )}
       </div>
     );
   }

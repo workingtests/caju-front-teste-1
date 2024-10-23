@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { IconButtonStyled } from "~/components/IconButton/styles";
-import Button from "~/components/Buttons";
+import { Button } from "~/components/Buttons";
 
 export const Form = styled.form`
   display: flex;

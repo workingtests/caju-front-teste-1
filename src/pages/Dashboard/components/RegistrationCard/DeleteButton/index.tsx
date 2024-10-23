@@ -1,27 +1,20 @@
-import { ReactNode, useState } from "react";
-import { ButtonSmall } from "~/components/Buttons";
-import { Dialog, DialogContent, DialogOverlay } from "~/components/Dialog";
-import { useChangeStatusRegistration } from "~/hooks/use-change-status-registration";
-import { Registration } from "~/types/registration";
-import { ActionsContent } from "./styles";
-import { Status } from "~/types/status";
+import { useState } from "react";
+import { HiOutlineTrash } from "react-icons/hi";
 
-type ActionButtonProps = {
-  registration: Registration;
-  children: ReactNode;
-  color?: string;
-  status: Status;
+import { Dialog, DialogContent, DialogOverlay } from "~/components/Dialog";
+import { IconButton } from "~/components/IconButton";
+import { ButtonSmall } from "~/components/Buttons";
+import { useDeleteRegistration } from "~/hooks/use-delete-registration";
+import { ActionsContent } from "../ActionButton/styles";
+
+type DeleteButtonProps = {
+  registrationId: string;
 };
 
-export const ActionButton = ({
-  registration,
-  children,
-  color,
-  status,
-}: ActionButtonProps) => {
+export const DeleteButton = ({ registrationId }: DeleteButtonProps) => {
   const [openDialogConfirmation, setOpenDialogConfirmation] = useState(false);
-  const { changeStatusRegistration } = useChangeStatusRegistration({
-    registration,
+  const { deleteRegistration } = useDeleteRegistration({
+    registrationId,
   });
 
   const handleConfirmOperation = () => {
@@ -32,9 +25,12 @@ export const ActionButton = ({
 
   return (
     <>
-      <ButtonSmall bgcolor={color} onClick={handleConfirmOperation}>
-        {children}
-      </ButtonSmall>
+      <IconButton
+        aria-label="delete-registration"
+        onClick={handleConfirmOperation}
+      >
+        <HiOutlineTrash />
+      </IconButton>
       <Dialog.Root
         open={openDialogConfirmation}
         onOpenChange={setOpenDialogConfirmation}
@@ -53,7 +49,7 @@ export const ActionButton = ({
               <ButtonSmall
                 bgcolor="rgba(232, 5, 55, 1)"
                 color="#fff"
-                onClick={() => changeStatusRegistration({ status })}
+                onClick={deleteRegistration}
               >
                 Sim
               </ButtonSmall>

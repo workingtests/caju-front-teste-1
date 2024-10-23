@@ -16,7 +16,7 @@ type CollumnsProps = {
 
 export const Collumns = ({ registrations }: CollumnsProps) => {
   return (
-    <S.Container>
+    <S.Container data-testid="registrations-columns">
       {allColumns.map((column) => {
         return (
           <S.Column status={column.status} key={column.title}>

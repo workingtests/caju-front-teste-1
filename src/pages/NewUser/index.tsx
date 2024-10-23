@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { TextField } from "~/components/TextField";
-import Button from "~/components/Buttons";
+import { Button } from "~/components/Buttons";
 import { IconButton } from "~/components/IconButton";
 import { useAddRegistration } from "~/hooks/use-add-registration";
 import { routes } from "~/router/routes";
@@ -15,7 +15,7 @@ import { userResolver } from "./resolver";
 
 type UserFormValues = z.infer<typeof userResolver>;
 
-const NewUserPage = () => {
+export const NewUserPage = () => {
   const history = useHistory();
   const { addRegistration } = useAddRegistration();
 
@@ -29,12 +29,18 @@ const NewUserPage = () => {
   };
 
   const disableSubmitButton =
-    !form.formState.isDirty ||
-    !form.formState.isValid ||
-    form.formState.isSubmitting;
+    !form.formState.isValid || form.formState.isSubmitting;
+
+  const handleAddRegistration = ({
+    admissionDate,
+    cpf,
+    email,
+    employeeName,
+  }: UserFormValues) =>
+    addRegistration({ admissionDate, cpf, email, employeeName });
 
   return (
-    <S.Form onSubmit={form.handleSubmit(addRegistration)}>
+    <S.Form onSubmit={form.handleSubmit(handleAddRegistration)}>
       <S.Card>
         <IconButton onClick={() => goToHome()} aria-label="back">
           <HiOutlineArrowLeft size={24} />
@@ -71,5 +77,3 @@ const NewUserPage = () => {
     </S.Form>
   );
 };
-
-export default NewUserPage;

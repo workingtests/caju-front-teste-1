@@ -3,7 +3,7 @@ import { HiRefresh } from "react-icons/hi";
 import { useHistory, useLocation } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 
-import Button from "~/components/Buttons";
+import { Button } from "~/components/Buttons";
 import { IconButton } from "~/components/IconButton";
 import { TextField } from "~/components/TextField";
 import { useRegistrationsQueryKey } from "~/hooks/use-registrations";
